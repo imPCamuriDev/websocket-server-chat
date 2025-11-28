@@ -6,18 +6,23 @@ const WebSocket = require('ws');
 const app = express();
 const PORT = 3000;
 
+require('dotenv').config();
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Configuração do PostgreSQL
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'projeto_estacio_msg',
-  password: '123',
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+  ssl: { rejectUnauthorized: false }
 });
+
+module.exports = pool;
 
 // ============================================
 // CRIAR TABELAS (rodar uma vez)
