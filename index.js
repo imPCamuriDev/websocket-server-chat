@@ -215,10 +215,7 @@ function notificarNovaMensagem(mensagem) {
   const wsDestinatario = conexoes.get(mensagem.destinatario_id);
   
   if (wsDestinatario && wsDestinatario.readyState === WebSocket.OPEN) {
-    wsDestinatario.send(JSON.stringify({
-      tipo: 'nova_mensagem',
-      mensagem: mensagem
-    }));
+    wsDestinatario.send(JSON.stringify(mensagem));
     console.log(`📨 Mensagem enviada para usuário ${mensagem.destinatario_id}`);
   }
 }
